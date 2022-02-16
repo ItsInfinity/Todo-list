@@ -12,8 +12,10 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+const uri = process.env.MONGODB_URI;
+mongoose.connect(uri || "mongodb://localhost:27017/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true });
+//heroku config:set MONGODB_URI="mongodb+srv://cluster0.guive.mongodb.net/todoDb?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
 
 const itemsSchema = {
   name: String,
